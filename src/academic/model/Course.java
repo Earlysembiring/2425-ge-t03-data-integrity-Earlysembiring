@@ -1,11 +1,5 @@
 package academic.model;
 
-/**
- * @author 12s23018 Early
- * @author 12S23032 seprian
- */
-
-
 public class Course {
     private String courseId;
     private String courseName;

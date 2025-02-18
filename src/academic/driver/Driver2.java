@@ -1,11 +1,5 @@
 package academic.driver;
 
-/
-/**
- * @author 12s23018 Early
- * @author 12S23032 seprian
- */
-
 
 import academic.model.Course;
 import academic.model.Student;

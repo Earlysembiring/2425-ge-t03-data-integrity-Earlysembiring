@@ -1,37 +1,25 @@
 package academic.model;
 
-/**
- * @author 12s23018 Early
- * @author 12S23032 seprian
- */
-
-
 public class Enrollment {
-    private Course course;
-    private Student student;
+    private String courseCode;
+    private String studentId;
     private String academicYear;
     private String semester;
 
-    public Enrollment(Course course, Student student, String academicYear, String semester) {
-        if (course == null) {
-            throw new IllegalArgumentException("Invalid course");
-        }
-        if (student == null) {
-            throw new IllegalArgumentException("Invalid student");
-        }
-        this.course = course;
-        this.student = student;
+    public Enrollment(String courseCode, String studentId, String academicYear, String semester) {
+        this.courseCode = courseCode;
+        this.studentId = studentId;
         this.academicYear = academicYear;
         this.semester = semester;
     }
 
     // Necessary accessors
-    public Course getCourse() {
-        return course;
+    public String getCourseCode() {
+        return courseCode;
     }
 
-    public Student getStudent() {
-        return student;
+    public String getStudentId() {
+        return studentId;
     }
 
     public String getAcademicYear() {
@@ -42,8 +30,10 @@ public class Enrollment {
         return semester;
     }
 
+    // No mutators needed as enrollment details should not change once created
+
     @Override
     public String toString() {
-        return course.getCourseId() + "|" + student.getStudentId() + "|" + academicYear + "|" + semester + "|None";
+        return courseCode + "|" + studentId + "|" + academicYear + "|" + semester;
     }
 }

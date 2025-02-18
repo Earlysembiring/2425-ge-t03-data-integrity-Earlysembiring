@@ -1,34 +1,83 @@
 package academic.driver;
 
-
 /**
- * @author 12S23018_Early sembiring
- * @author 12S230132_Seprian siagian
+ * @author 12s23018 Early
+ * @author 12S23032 seprian
  */
+
 
 import academic.model.Course;
 import academic.model.Student;
 import academic.model.Enrollment;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Driver1 {
     public static void main(String[] args) {
-        // Add courses
-        Course course1 = new Course("12S2203", "Object-oriented Programming", 3, "C");
-        Course course2 = new Course("10S1002", "Pemrograman Prosedural", 2, "D");
+        Scanner scanner = new Scanner(System.in);
+        List<Course> courses = new ArrayList<>();
+        List<Student> students = new ArrayList<>();
+        List<Enrollment> enrollments = new ArrayList<>();
 
-        // Add students
-        Student student1 = new Student("12S20999", "Wiro Sableng", 2020, "Information Systems");
-        Student student2 = new Student("12S20111", "Jaka Sembung", 2019, "Information Systems");
+        // Read courses
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            if (line.equals("---")) break;
 
-        // Add enrollments
-        Enrollment enrollment1 = new Enrollment(course1, student1, "2021/2022", "even");
-        Enrollment enrollment2 = new Enrollment(course1, student2, "2020/2021", "even");
+            String[] data = line.split("#");
+            if (data[0].equals("course-add")) {
+                courses.add(new Course(data[1], data[2], Integer.parseInt(data[3]), data[4]));
+            }
+        }
+
+        // Read students
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            if (line.equals("---")) break;
+
+            String[] data = line.split("#");
+            if (data[0].equals("student-add")) {
+                students.add(new Student(data[1], data[2], Integer.parseInt(data[3]), data[4]));
+            }
+        }
+
+        // Read enrollments
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            if (line.equals("---")) break;
+
+            String[] data = line.split("#");
+            if (data[0].equals("enrollment-add")) {
+                Course course = courses.stream()
+                    .filter(c -> c.getCourseId().equals(data[1]))
+                    .findFirst()
+                    .orElse(null);
+
+                Student student = students.stream()
+                    .filter(s -> s.getStudentId().equals(data[2]))
+                    .findFirst()
+                    .orElse(null);
+
+                if (course != null && student != null) {
+                    enrollments.add(new Enrollment(course, student, data[3], data[4]));
+                }
+            }
+        }
+
+        // Print courses
+        for (Course course : courses) {
+            System.out.println(course);
+        }
+
+        // Print students
+        for (Student student : students) {
+            System.out.println(student);
+        }
 
         // Print enrollments
-        System.out.println(enrollment1);
-        System.out.println(enrollment2);
-
-        // Ensure no duplicate data
-        // Implement logic to check for duplicates and handle accordingly
+        for (Enrollment enrollment : enrollments) {
+            System.out.println(enrollment);
+        }
     }
 }

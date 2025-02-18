@@ -1,8 +1,8 @@
 package academic.model;
 
 /**
- * @author 12S23018_Early sembiring
- * @author 12S230132_Seprian siagian
+ * @author 12s23018 Early
+ * @author 12S23032 seprian
  */
 
 

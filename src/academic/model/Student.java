@@ -34,6 +34,6 @@ public class Student {
 
     @Override
     public String toString() {
-        return studentId + "|" + studentName + "|" + year + "|" + major;
+        return studentId + "|" + studentName + "|" + year + "|" + major; 
     }
 }

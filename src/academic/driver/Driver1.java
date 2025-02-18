@@ -6,6 +6,7 @@ import academic.model.Enrollment;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Comparator; // Tambahkan impor ini
 
 public class Driver1 {
     public static void main(String[] args) {
@@ -49,6 +50,11 @@ public class Driver1 {
                     break;
             }
         }
+        scanner.close();
+
+        // Sort courses and enrollments
+        courses.sort(Comparator.comparing(Course::getCourseId));
+        enrollments.sort(Comparator.comparing(enrollment -> enrollment.getCourse().getCourseId()));
 
         // Print courses
         for (Course course : courses) {

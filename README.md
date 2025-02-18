@@ -37,7 +37,6 @@ enrollment-add#12S2203#12S20999#2021/2022#even
 student-add#12S20111#Jaka Sembung#2019#Information Systems
 enrollment-add#12S2203#12S20000#2020/2021#even
 enrollment-add#12S2200#12S20000#2020/2021#odd
----
 
 ```
 

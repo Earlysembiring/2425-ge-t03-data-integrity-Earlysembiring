@@ -6,7 +6,7 @@ package academic.model;
  * @author 12S2018_early
  * @author 12s23032 _ seprian
  */
-public class Student {
+public class Student { 
 
     private static String id;
     private static String studentName;

@@ -6,7 +6,7 @@ package academic.model;
  * @author 12s23032 _ seprian
  */
 
-public class Course {
+public class Course { 
 
     private static String code;
     private static String courseName;

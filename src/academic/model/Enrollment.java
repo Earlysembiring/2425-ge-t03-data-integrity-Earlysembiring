@@ -14,7 +14,7 @@ public class Enrollment {
     private static String semester;
     // private String grade;
 
-    public Enrollment( ) {
+    public Enrollment( ) { 
         code        = "";
         id          = "";
         period      = "";

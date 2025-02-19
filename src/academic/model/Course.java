@@ -1,37 +1,50 @@
 package academic.model;
 
+
+/**
+ * @author 12S2018_early
+ * @author 12s23032 _ seprian
+ */
+
 public class Course {
-    private String courseId;
-    private String courseName;
-    private int credits;
-    private String grade;
 
-    public Course(String courseId, String courseName, int credits, String grade) {
-        this.courseId = courseId;
-        this.courseName = courseName;
-        this.credits = credits;
-        this.grade = grade;
+    private static String code;
+    private static String courseName;
+    private static int    credit;
+    private static String passingGrade;
+
+    public Course( ) {
+        code        = "";
+        courseName  = "";
+        credit      = 0;
+        passingGrade= "";
     }
 
-    // Necessary accessors
-    public String getCourseId() {
-        return courseId;
+    public Course( String CODE, String COURSE_NAME,
+                   String CREDIT, String PASSING_GRADE ) {
+        code         = CODE;
+        courseName   = COURSE_NAME;
+        credit       = Integer.parseInt(CREDIT);
+        passingGrade = PASSING_GRADE;
     }
 
-    public String getCourseName() {
-        return courseName;
+    public String getCode( ) { return code; }
+    // public void setCode( String code ) { this.code = code; }
+
+    public static String getCourseName( ) { return courseName; }
+    // public void setCourseName( String courseName ) { this.courseName = courseName; }
+
+    public static int getCredit( ) { return credit; }
+    // public void setCredit( int credit ) { this.credit = credit; }
+
+    public static String getPassingGrade( ) { return passingGrade; }
+    // public void setPassingGrade( String passingGrade ) { this.passingGrade = passingGrade; }
+
+    public String toString( ) {
+        return String.format("%s|%s|%d|%s",code,courseName,credit,passingGrade);
+        // return this.code + "|" + this.courseName + "|" + this.credit + "|" + this.passingGrade;
     }
 
-    public int getCredits() {
-        return credits;
-    }
+    
 
-    public String getGrade() {
-        return grade;
-    }
-
-    @Override
-    public String toString() {
-        return courseId + "|" + courseName + "|" + credits + "|" + grade;
-    }
 }

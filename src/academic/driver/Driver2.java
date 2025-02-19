@@ -1,80 +1,105 @@
 package academic.driver;
-
 import academic.model.Course;
 import academic.model.Student;
 import academic.model.Enrollment;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
-public class Driver2 {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        // Create maps to store courses and students
-        Map<String, Course> courses = new HashMap<>();
-        Map<String, Student> students = new HashMap<>();
-        List<Enrollment> enrollments = new ArrayList<>();
-        List<String> errors = new ArrayList<>();
+/**
+ * @author 12S2018_early
+ * @author 12s23032 _ seprian
+ */
 
-        // Read input lines
-        List<String> inputLines = new ArrayList<>();
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            if (line.equals("---")) break;
-            inputLines.add(line);
-        }
+public class Driver2
+{
+    public static void main( String[ ] _args ) {
 
-        // Process each input line
-        for (String line : inputLines) {
-            String[] data = line.split("#");
-            switch (data[0]) {
-                case "course-add":
-                    courses.put(data[1], new Course(data[1], data[2], Integer.parseInt(data[3]), data[4]));
-                    break;
-                case "student-add":
-                    students.put(data[1], new Student(data[1], data[2], Integer.parseInt(data[3]), data[4]));
-                    break;
-                case "enrollment-add":
-                    addEnrollment(courses, students, enrollments, errors, data[1], data[2], data[3], data[4]);
-                    break;
+        try ( Scanner inp = new Scanner( System.in ) )
+        {
+            ArrayList < Student    > siswa  = new ArrayList<>( );
+            ArrayList < Course     > matkul = new ArrayList<>( );
+            ArrayList < Enrollment > enrol  = new ArrayList<>( );
+            ArrayList < String     > notif  = new ArrayList<>( );
+            String line;
+            String[ ] buff=null;
+            boolean cStu=false, cMat=false;
+
+            while ( !( line = inp.nextLine( ) ).equals("---") )
+            {
+                buff = line.split( "#" );
+
+                if ( buff[0].equals( "course-add" ) )
+                {
+                    Student siswaNew = new Student(
+                                                    buff[1],
+                                                    buff[2],
+                                                    buff[3],
+                                                    buff[4]
+                                                     );
+                    siswa.add( siswaNew );
+                }
+
+                else if ( buff[0].equals( "course-add" ) )
+                {
+                    Course matkulNew = new Course (
+                                                    buff[1],
+                                                    buff[2],
+                                                    buff[3],
+                                                    buff[4]
+                                                     );
+                    matkul.add( matkulNew );
+                }
+
+                else if ( buff[0].equals( "enrollment-add" ) )
+                {
+                    try {
+                        
+                        for ( int temp=0 ; temp<siswa.size( ); ) {
+                            if ( siswa.get( temp ).getId( ).equals( buff[2] ) ) {
+                                cStu = true; break;
+                            }
+                            else {
+                                throw new Exception( "invalid student|" + buff[2] );
+                            }
+                        }
+                        
+                        for ( int temp=0;  temp<matkul.size( ); ) {
+                            if ( matkul.get( temp ).getCode( ).equals( buff[1] ) ) {
+                                cMat = true; break;
+                            }
+                            else {
+                                throw new Exception( "invalid course|" + buff[1] );
+                            }
+                        }
+
+                        if ( cMat && cStu ) {
+                            Enrollment temp = new Enrollment( buff[1],
+                                                              buff[2],
+                                                              buff[3],
+                                                              buff[4]
+                                                               );
+                            enrol.add( temp );
+                        }
+                    }
+
+                    catch( Exception _err ) { notif.add( _err.getMessage( ) ); }
+                }
             }
-        }
-        scanner.close();
 
-        // Print errors
-        for (String error : errors) {
-            System.out.println(error);
-        }
+            // stdout
+            for ( String message : notif )
+                { System.out.println( message ); }
 
-        // Print courses
-        for (Course course : courses.values()) {
-            System.out.println(course);
-        }
+            for ( int i= siswa.size()-1; i>=0; i-- )
+                { System.out.println( siswa.get( i ).toString( ) ); }
 
-        // Print students
-        for (Student student : students.values()) {
-            System.out.println(student);
+            for ( int i= matkul.size()-1; i>=0; i-- )
+                { System.out.println( matkul.get( i ).toString( ) ); }
+            
+            for ( Enrollment temp : enrol )
+                { System.out.println( temp.toString( ) ); }
+            
         }
 
-        // Print enrollments
-        for (Enrollment enrollment : enrollments) {
-            System.out.println(enrollment);
-        }
     }
 
-    private static void addEnrollment(Map<String, Course> courses, Map<String, Student> students, List<Enrollment> enrollments, List<String> errors, String courseId, String studentId, String academicYear, String semester) {
-        Course course = courses.get(courseId);
-        Student student = students.get(studentId);
-
-        if (course == null) {
-            errors.add("invalid course|" + courseId);
-        } else if (student == null) {
-            errors.add("invalid student|" + studentId);
-        } else {
-            Enrollment enrollment = new Enrollment(course, student, academicYear, semester);
-            enrollments.add(enrollment);
-        }
-    }
 }

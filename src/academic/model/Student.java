@@ -30,8 +30,6 @@ public class Student {
         return major;
     }
 
-    // No mutators needed as student details should not change once created
-
     @Override
     public String toString() {
         return studentId + "|" + studentName + "|" + year + "|" + major;

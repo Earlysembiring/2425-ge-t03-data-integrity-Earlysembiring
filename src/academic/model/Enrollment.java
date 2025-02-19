@@ -27,7 +27,7 @@ public class Enrollment {
     public Student getStudent() {
         return student;
     }
-
+        
     public String getAcademicYear() {
         return academicYear;
     }

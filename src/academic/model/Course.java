@@ -30,8 +30,6 @@ public class Course {
         return grade;
     }
 
-    // No mutators needed as course details should not change once created
-
     @Override
     public String toString() {
         return courseId + "|" + courseName + "|" + credits + "|" + grade;

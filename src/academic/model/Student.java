@@ -17,7 +17,7 @@ public class Student {
     public String getStudentId() {
         return studentId;
     }
-
+ 
     public String getStudentName() {
         return studentName;
     }

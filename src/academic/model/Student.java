@@ -1,39 +1,43 @@
 package academic.model;
 
 public class Student {
-    private String studentId;
+    private String id;
     private String studentName;
-    private int year;
-    private String major;
+    private String eduYear;
+    private String stuPrg;
 
-    public Student(String studentId, String studentName, int year, String major) {
-        this.studentId = studentId;
-        this.studentName = studentName;
-        this.year = year;
-        this.major = major;
+    public Student() {
+        this.id = "";
+        this.studentName = "";
+        this.eduYear = "";
+        this.stuPrg = "";
     }
 
-    // Necessary accessors
-    public String getStudentId() {
-        return studentId;
+    public Student(String id, String studentName, String eduYear, String stuPrg) {
+        this.id = id;
+        this.studentName = studentName;
+        this.eduYear = eduYear;
+        this.stuPrg = stuPrg;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getStudentName() {
         return studentName;
     }
 
-    public int getYear() { 
-        return year;
+    public String getEduYear() {
+        return eduYear;
     }
 
-    public String getMajor() {
-        return major;
+    public String getStuPrg() {
+        return stuPrg;
     }
-
-    // No mutators needed as student details should not change once created
 
     @Override
     public String toString() {
-        return studentId + "|" + studentName + "|" + year + "|" + major;
+        return String.format("%s|%s|%s|%s", id, studentName, eduYear, stuPrg);
     }
 }

@@ -1,39 +1,43 @@
 package academic.model;
 
 public class Course {
-    private String courseId;
+    private String code;
     private String courseName;
-    private int credits;
-    private String grade;
+    private int credit;
+    private String passingGrade;
 
-    public Course(String courseId, String courseName, int credits, String grade) {
-        this.courseId = courseId;
+    public Course() {
+        this.code = "";
+        this.courseName = "";
+        this.credit = 0;
+        this.passingGrade = "";
+    }
+
+    public Course(String code, String courseName, String credit, String passingGrade) {
+        this.code = code;
         this.courseName = courseName;
-        this.credits = credits;
-        this.grade = grade;
+        this.credit = Integer.parseInt(credit);
+        this.passingGrade = passingGrade;
     }
 
-    // Necessary accessors
-    public String getCourseId() {
-        return courseId;
+    public String getCode() {
+        return code;
     }
 
-    public String getCourseName() { 
+    public String getCourseName() {
         return courseName;
     }
 
-    public int getCredits() {
-        return credits;
+    public int getCredit() {
+        return credit;
     }
 
-    public String getGrade() {
-        return grade;
+    public String getPassingGrade() {
+        return passingGrade;
     }
-
-    // No mutators needed as course details should not change once created
 
     @Override
     public String toString() {
-        return courseId + "|" + courseName + "|" + credits + "|" + grade;
+        return String.format("%s|%s|%d|%s", code, courseName, credit, passingGrade);
     }
 }

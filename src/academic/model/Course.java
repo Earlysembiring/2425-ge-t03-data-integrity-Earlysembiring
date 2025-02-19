@@ -1,6 +1,5 @@
 package academic.model;
 
-
 public class Course {
     private String courseId;
     private String courseName;
@@ -12,7 +11,7 @@ public class Course {
         this.courseName = courseName;
         this.credits = credits;
         this.grade = grade;
-    } 
+    }
 
     // Necessary accessors
     public String getCourseId() {

@@ -1,4 +1,5 @@
-"input": "course-add#12S2203#Object-oriented Programming#3#C
+"input": "
+course-add#12S2203#Object-oriented Programming#3#C
 course-add#10S1002#Pemrograman Prosedural#2#D
 student-add#12S20999#Wiro Sableng#2020#Information Systems
 nenrollment-add#12S2203#12S20999#2021/2022#even

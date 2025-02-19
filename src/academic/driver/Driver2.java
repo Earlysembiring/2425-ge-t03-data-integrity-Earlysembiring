@@ -16,6 +16,7 @@ public class Driver2 {
         Map<String, Course> courses = new HashMap<>();
         Map<String, Student> students = new HashMap<>();
         List<Enrollment> enrollments = new ArrayList<>();
+        List<String> errors = new ArrayList<>();
 
         // Read input lines
         List<String> inputLines = new ArrayList<>();
@@ -36,11 +37,16 @@ public class Driver2 {
                     students.put(data[1], new Student(data[1], data[2], Integer.parseInt(data[3]), data[4]));
                     break;
                 case "enrollment-add":
-                    addEnrollment(courses, students, enrollments, data[1], data[2], data[3], data[4]);
+                    addEnrollment(courses, students, enrollments, errors, data[1], data[2], data[3], data[4]);
                     break;
             }
         }
         scanner.close();
+
+        // Print errors
+        for (String error : errors) {
+            System.out.println(error);
+        }
 
         // Print courses
         for (Course course : courses.values()) {
@@ -58,14 +64,14 @@ public class Driver2 {
         }
     }
 
-    private static void addEnrollment(Map<String, Course> courses, Map<String, Student> students, List<Enrollment> enrollments, String courseId, String studentId, String academicYear, String semester) {
+    private static void addEnrollment(Map<String, Course> courses, Map<String, Student> students, List<Enrollment> enrollments, List<String> errors, String courseId, String studentId, String academicYear, String semester) {
         Course course = courses.get(courseId);
         Student student = students.get(studentId);
 
         if (course == null) {
-            System.out.println("invalid course|" + courseId);
+            errors.add("invalid course|" + courseId);
         } else if (student == null) {
-            System.out.println("invalid student|" + studentId);
+            errors.add("invalid student|" + studentId);
         } else {
             Enrollment enrollment = new Enrollment(course, student, academicYear, semester);
             enrollments.add(enrollment);

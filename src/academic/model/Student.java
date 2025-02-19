@@ -22,7 +22,7 @@ public class Student {
         return studentName;
     }
 
-    public int getYear() {
+    public int getYear() { 
         return year;
     }
 

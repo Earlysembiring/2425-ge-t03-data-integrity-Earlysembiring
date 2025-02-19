@@ -7,40 +7,26 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Driver2 {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         // Create maps to store courses and students
         Map<String, Course> courses = new HashMap<>();
         Map<String, Student> students = new HashMap<>();
         List<Enrollment> enrollments = new ArrayList<>();
 
-        // Read input lines
-        List<String> inputLines = new ArrayList<>();
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            if (line.equals("---")) break;
-            inputLines.add(line);
-        }
+        // Add courses
+        courses.put("12S2203", new Course("12S2203", "Object-oriented Programming", 3, "C"));
+        courses.put("10S1002", new Course("10S1002", "Pemrograman Prosedural", 2, "D"));
 
-        // Process each input line
-        for (String line : inputLines) {
-            String[] data = line.split("#");
-            switch (data[0]) {
-                case "course-add":
-                    courses.put(data[1], new Course(data[1], data[2], Integer.parseInt(data[3]), data[4]));
-                    break;
-                case "student-add":
-                    students.put(data[1], new Student(data[1], data[2], Integer.parseInt(data[3]), data[4]));
-                    break;
-                case "enrollment-add":
-                    addEnrollment(courses, students, enrollments, data[1], data[2], data[3], data[4]);
-                    break;
-            }
-        }
-        scanner.close();
+        // Add students
+        students.put("12S20999", new Student("12S20999", "Wiro Sableng", 2020, "Information Systems"));
+        students.put("12S20111", new Student("12S20111", "Jaka Sembung", 2019, "Information Systems"));
+
+        // Add enrollments with exception handling
+        addEnrollment(courses, students, enrollments, "12S2203", "12S20999", "2021/2022", "even");
+        addEnrollment(courses, students, enrollments, "12S2203", "12S20000", "2020/2021", "even");
+        addEnrollment(courses, students, enrollments, "12S2200", "12S20000", "2020/2021", "odd");
 
         // Print courses
         for (Course course : courses.values()) {
@@ -72,4 +58,3 @@ public class Driver2 {
         }
     }
 }
-

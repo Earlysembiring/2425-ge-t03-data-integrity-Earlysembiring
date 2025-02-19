@@ -11,7 +11,7 @@ public class Course {
         this.courseName = courseName;
         this.credits = credits;
         this.grade = grade;
-    }
+    } 
 
     // Necessary accessors
     public String getCourseId() {
@@ -37,4 +37,3 @@ public class Course {
         return courseId + "|" + courseName + "|" + credits + "|" + grade;
     }
 }
-

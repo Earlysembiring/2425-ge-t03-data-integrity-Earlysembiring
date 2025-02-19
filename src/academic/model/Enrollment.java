@@ -1,35 +1,35 @@
 package academic.model;
 
 public class Enrollment {
-    private String code;
-    private String id;
-    private String period;
+    private Course course;
+    private Student student;
+    private String academicYear;
     private String semester;
 
-    public Enrollment() {
-        this.code = "";
-        this.id = "";
-        this.period = "";
-        this.semester = "";
-    }
-
-    public Enrollment(String code, String id, String period, String semester) {
-        this.code = code;
-        this.id = id;
-        this.period = period;
+    public Enrollment(Course course, Student student, String academicYear, String semester) {
+        if (course == null) {
+            throw new IllegalArgumentException("Invalid course");
+        }
+        if (student == null) {
+            throw new IllegalArgumentException("Invalid student");
+        }
+        this.course = course;
+        this.student = student;
+        this.academicYear = academicYear;
         this.semester = semester;
     }
 
-    public String getCode() {
-        return code;
+    // Necessary accessors
+    public Course getCourse() {
+        return course;
     }
 
-    public String getId() {
-        return id;
+    public Student getStudent() {
+        return student;
     }
 
-    public String getPeriod() {
-        return period;
+    public String getAcademicYear() {
+        return academicYear;
     }
 
     public String getSemester() {
@@ -38,6 +38,47 @@ public class Enrollment {
 
     @Override
     public String toString() {
-        return String.format("%s|%s|%s|%s|None", code, id, period, semester);
+        return course.getCourseId() + "|" + student.getStudentId() + "|" + academicYear + "|" + semester + "|None";
+    }
+} 
+
+course
+package academic.model;
+
+public class Course {
+    private String courseId;
+    private String courseName;
+    private int credits;
+    private String grade;
+
+    public Course(String courseId, String courseName, int credits, String grade) {
+        this.courseId = courseId;
+        this.courseName = courseName;
+        this.credits = credits;
+        this.grade = grade;
+    }
+
+    // Necessary accessors
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public int getCredits() {
+        return credits;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    // No mutators needed as course details should not change once created
+
+    @Override
+    public String toString() {
+        return courseId + "|" + courseName + "|" + credits + "|" + grade;
     }
 }

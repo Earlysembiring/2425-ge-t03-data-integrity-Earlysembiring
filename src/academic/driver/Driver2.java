@@ -3,77 +3,73 @@ package academic.driver;
 import academic.model.Course;
 import academic.model.Student;
 import academic.model.Enrollment;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Driver2 {
     public static void main(String[] args) {
-        Scanner inp = new Scanner(System.in);
-        List<Course> matkul = new ArrayList<>();
-        List<Student> siswa = new ArrayList<>();
-        List<Enrollment> enrol = new ArrayList<>();
-        List<String> notif = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+        // Create maps to store courses and students
+        Map<String, Course> courses = new HashMap<>();
+        Map<String, Student> students = new HashMap<>();
+        List<Enrollment> enrollments = new ArrayList<>();
 
         // Read input lines
         List<String> inputLines = new ArrayList<>();
-        while (inp.hasNextLine()) {
-            String line = inp.nextLine();
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
             if (line.equals("---")) break;
             inputLines.add(line);
         }
 
         // Process each input line
         for (String line : inputLines) {
-            String[] buff = line.split("#");
-            switch (buff[0]) {
+            String[] data = line.split("#");
+            switch (data[0]) {
                 case "course-add":
-                    matkul.add(new Course(buff[1], buff[2], buff[3], buff[4]));
+                    courses.put(data[1], new Course(data[1], data[2], Integer.parseInt(data[3]), data[4]));
                     break;
                 case "student-add":
-                    siswa.add(new Student(buff[1], buff[2], buff[3], buff[4]));
+                    students.put(data[1], new Student(data[1], data[2], Integer.parseInt(data[3]), data[4]));
                     break;
                 case "enrollment-add":
-                    addEnrollment(matkul, siswa, enrol, notif, buff[1], buff[2], buff[3], buff[4]);
+                    addEnrollment(courses, students, enrollments, data[1], data[2], data[3], data[4]);
                     break;
             }
         }
-        inp.close();
-
-        // Print errors
-        for (String error : notif) {
-            System.out.println(error);
-        }
+        scanner.close();
 
         // Print courses
-        for (Course course : matkul) {
+        for (Course course : courses.values()) {
             System.out.println(course);
         }
 
         // Print students
-        for (Student student : siswa) {
+        for (Student student : students.values()) {
             System.out.println(student);
         }
 
         // Print enrollments
-        for (Enrollment enrollment : enrol) {
+        for (Enrollment enrollment : enrollments) {
             System.out.println(enrollment);
         }
     }
 
-    private static void addEnrollment(List<Course> matkul, List<Student> siswa, List<Enrollment> enrol, List<String> notif, String courseId, String studentId, String academicYear, String semester) {
-        boolean courseExists = matkul.stream().anyMatch(course -> course.getCode().equals(courseId));
-        if (!courseExists) {
-            notif.add("invalid course|" + courseId);
-            return;
-        }
+    private static void addEnrollment(Map<String, Course> courses, Map<String, Student> students, List<Enrollment> enrollments, String courseId, String studentId, String academicYear, String semester) {
+        Course course = courses.get(courseId);
+        Student student = students.get(studentId);
 
-        boolean studentExists = siswa.stream().anyMatch(student -> student.getId().equals(studentId));
-        if (!studentExists) {
-            notif.add("invalid student|" + studentId);
-            return;
+        if (course == null) {
+            System.out.println("invalid course|" + courseId);
+        } else if (student == null) {
+            System.out.println("invalid student|" + studentId);
+        } else {
+            Enrollment enrollment = new Enrollment(course, student, academicYear, semester);
+            enrollments.add(enrollment);
         }
-
-        enrol.add(new Enrollment(courseId, studentId, academicYear, semester));
     }
 }
+

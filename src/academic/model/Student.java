@@ -17,7 +17,7 @@ public class Student {
     public String getStudentId() {
         return studentId;
     }
- 
+
     public String getStudentName() {
         return studentName;
     }
@@ -34,6 +34,6 @@ public class Student {
 
     @Override
     public String toString() {
-        return studentId + "|" + studentName + "|" + year + "|" + major; 
+        return studentId + "|" + studentName + "|" + year + "|" + major;
     }
 }

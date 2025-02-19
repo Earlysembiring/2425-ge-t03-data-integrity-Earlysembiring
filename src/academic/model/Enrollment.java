@@ -21,7 +21,7 @@ public class Enrollment {
 
     // Necessary accessors
     public Course getCourse() {
-        return course;
+        return course; 
     }
 
     public Student getStudent() {

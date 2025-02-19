@@ -63,14 +63,17 @@ public class Driver2 {
 
     private static void addEnrollment(List<Course> matkul, List<Student> siswa, List<Enrollment> enrol, List<String> notif, String courseId, String studentId, String academicYear, String semester) {
         boolean courseExists = matkul.stream().anyMatch(course -> course.getCode().equals(courseId));
-        boolean studentExists = siswa.stream().anyMatch(student -> student.getId().equals(studentId));
-
         if (!courseExists) {
             notif.add("invalid course|" + courseId);
-        } else if (!studentExists) {
-            notif.add("invalid student|" + studentId);
-        } else {
-            enrol.add(new Enrollment(courseId, studentId, academicYear, semester));
+            return;
         }
+
+        boolean studentExists = siswa.stream().anyMatch(student -> student.getId().equals(studentId));
+        if (!studentExists) {
+            notif.add("invalid student|" + studentId);
+            return;
+        }
+
+        enrol.add(new Enrollment(courseId, studentId, academicYear, semester));
     }
 }

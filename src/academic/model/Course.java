@@ -40,4 +40,4 @@ public class Course {
     public String toString() {
         return String.format("%s|%s|%d|%s", code, courseName, credit, passingGrade);
     }
-}
+} 

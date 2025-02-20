@@ -1,48 +1,42 @@
 package academic.model;
 
-// import java.security.Identity;
-
 /**
- * @author 12S2018_early
- * @author 12s23032 _ seprian
+ * @author 12S23018_early
+ * @author 12S230132_seprian
  */
-public class Student { 
 
-    private static String id;
-    private static String studentName;
-    private static String eduYear;
-    private static String stuPrg;
+public class Student {
+    private String code;
+    private String name;
+    private String years;
+    private String major;
 
-    public Student( ) {
-        id          = "";
-        studentName = "";
-        eduYear     = "";
-        stuPrg      = "";
+    public Student(String code, String name, String years, String major) {
+        this.code = code;
+        this.name = name;
+        this.years = years;
+        this.major = major;
     }
 
-    public Student( String ID, String STUDENT_NAME,
-                    String EDU_YEAR, String STU_PRG ) {
-        id          = ID;
-        studentName = STUDENT_NAME;
-        eduYear     = EDU_YEAR;
-        stuPrg      = STU_PRG;
+    public String getCode() {
+        return code;
     }
 
-    public  String getId( ) { return id; }
-    // public void setId( String id ) { this.id = id;  }
-
-    public static String getStudentName( ) { return studentName; }
-    // public void setName( String studentName ) { this.studentName = studentName;  }
-
-    public static String getEduYear( ) { return eduYear; }
-    // public void setYear( String eduYear ) { this.eduYear = eduYear; }
-
-    public static String getStuPrg( ) { return stuPrg; }
-    // public void setStudyProgram( String stuPrg ) { this.stuPrg = stuPrg;  }
-
-    public String toString( ) {
-        return String.format("%s|%s|%s|%s",id,studentName,eduYear,stuPrg);
+    public String getName() {
+        return name;
     }
 
+    public String getYears() {
+        return years;
+    }
 
-}
+    public String getMajor() {
+        return major;
+    }
+
+    @Override
+    public String toString() {
+        return code + "|" + name + "|" + years + "|" + major;
+    }
+
+};

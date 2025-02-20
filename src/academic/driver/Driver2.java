@@ -1,105 +1,112 @@
 package academic.driver;
+
 import academic.model.Course;
 import academic.model.Student;
 import academic.model.Enrollment;
-import java.util.*;
+import java.util.Scanner;
 
 /**
- * @author 12S2018_early
- * @author 12s23032 _ seprian
+ * @author 12S23018_early
+ * @author 12S230132_seprian
  */
- 
-public class Driver2
-{
-    public static void main( String[ ] _args ) {
 
-        try ( Scanner inp = new Scanner( System.in ) )
-        {
-            ArrayList < Student    > siswa  = new ArrayList<>( );
-            ArrayList < Course     > matkul = new ArrayList<>( );
-            ArrayList < Enrollment > enrol  = new ArrayList<>( );
-            ArrayList < String     > notif  = new ArrayList<>( );
-            String line;
-            String[ ] buff=null;
-            boolean cStu=false, cMat=false;
+public class Driver2 {
+    public static void main(String[] _args) {
+        Scanner scanner = new Scanner(System.in);
 
-            while ( !( line = inp.nextLine( ) ).equals("---") )
-            {
-                buff = line.split( "#" );
+        Course[] courseArray = new Course[100];
+        Student[] studentArray = new Student[100];
+        Enrollment[] enrollmentArray = new Enrollment[100];
 
-                if ( buff[0].equals( "course-add" ) )
-                {
-                    Student siswaNew = new Student(
-                                                    buff[1],
-                                                    buff[2],
-                                                    buff[3],
-                                                    buff[4]
-                                                     );
-                    siswa.add( siswaNew );
-                }
+        int courseIndex = 0;
+        int studentIndex = 0;
+        int enrollmentIndex = 0;
 
-                else if ( buff[0].equals( "course-add" ) )
-                {
-                    Course matkulNew = new Course (
-                                                    buff[1],
-                                                    buff[2],
-                                                    buff[3],
-                                                    buff[4]
-                                                     );
-                    matkul.add( matkulNew );
-                }
+        StringBuilder invalidEntries = new StringBuilder();
 
-                else if ( buff[0].equals( "enrollment-add" ) )
-                {
-                    try {
-                        
-                        for ( int temp=0 ; temp<siswa.size( ); ) {
-                            if ( siswa.get( temp ).getId( ).equals( buff[2] ) ) {
-                                cStu = true; break;
-                            }
-                            else {
-                                throw new Exception( "invalid student|" + buff[2] );
-                            }
-                        }
-                        
-                        for ( int temp=0;  temp<matkul.size( ); ) {
-                            if ( matkul.get( temp ).getCode( ).equals( buff[1] ) ) {
-                                cMat = true; break;
-                            }
-                            else {
-                                throw new Exception( "invalid course|" + buff[1] );
-                            }
-                        }
+        while (true) {
+            String inputLine = scanner.nextLine().trim();
 
-                        if ( cMat && cStu ) {
-                            Enrollment temp = new Enrollment( buff[1],
-                                                              buff[2],
-                                                              buff[3],
-                                                              buff[4]
-                                                               );
-                            enrol.add( temp );
-                        }
-                    }
-
-                    catch( Exception _err ) { notif.add( _err.getMessage( ) ); }
-                }
+            if (inputLine.equals("---")) {
+                break;
             }
 
-            // stdout
-            for ( String message : notif )
-                { System.out.println( message ); }
+            String[] inputParts = inputLine.split("#");
 
-            for ( int i= siswa.size()-1; i>=0; i-- )
-                { System.out.println( siswa.get( i ).toString( ) ); }
+            switch (inputParts[0]) {
+                case "course-add":
+                    if (inputParts.length == 5) {
+                        String courseCode = inputParts[1];
+                        String courseName = inputParts[2];
+                        String courseCredits = inputParts[3];
+                        String courseGrade = inputParts[4];
+                        courseArray[courseIndex++] = new Course(courseCode, courseName, courseCredits, courseGrade);
+                    }
+                    break;
+                case "student-add":
+                    if (inputParts.length == 5) {
+                        String studentId = inputParts[1];
+                        String studentName = inputParts[2];
+                        String studentYear = inputParts[3];
+                        String studentMajor = inputParts[4];
+                        studentArray[studentIndex++] = new Student(studentId, studentName, studentYear, studentMajor);
+                    }
+                    break;
+                case "enrollment-add":
+                    if (inputParts.length == 5) {
+                        String enrollmentCourseCode = inputParts[1];
+                        String enrollmentStudentId = inputParts[2];
 
-            for ( int i= matkul.size()-1; i>=0; i-- )
-                { System.out.println( matkul.get( i ).toString( ) ); }
-            
-            for ( Enrollment temp : enrol )
-                { System.out.println( temp.toString( ) ); }
-            
+                        boolean courseExists = false;
+                        boolean studentExists = false;
+
+                        for (int i = 0; i < courseIndex; i++) {
+                            if (courseArray[i].getCode().equals(enrollmentCourseCode)) {
+                                courseExists = true;
+                                break;
+                            }
+                        }
+
+                        for (int i = 0; i < studentIndex; i++) {
+                            if (studentArray[i].getCode().equals(enrollmentStudentId)) {
+                                studentExists = true;
+                                break;
+                            }
+                        }
+
+                        if (!courseExists) {
+                            invalidEntries.append("invalid course|").append(enrollmentCourseCode).append("\n");
+                        } else if (!studentExists) {
+                            invalidEntries.append("invalid student|").append(enrollmentStudentId).append("\n");
+                        } else {
+                            String courseCode = inputParts[1];
+                            String studentId = inputParts[2];
+                            String year = inputParts[3];
+                            String semester = inputParts[4];
+                            String notes = "None";
+                            enrollmentArray[enrollmentIndex++] = new Enrollment(courseCode, studentId, year, semester, notes);
+                        }
+                    }
+                    break;
+                default:
+                    System.out.println("Error: Perintah tidak dikenali.");
+            }
         }
 
-    }
+        scanner.close();
 
+        System.out.print(invalidEntries.toString());
+
+        for (int i = courseIndex - 1; i >= 0; i--) {
+            System.out.println(courseArray[i].toString());
+        }
+
+        for (int i = 0; i < studentIndex; i++) {
+            System.out.println(studentArray[i].toString());
+        }
+
+        for (int i = 0; i < enrollmentIndex; i++) {
+            System.out.println(enrollmentArray[i].toString());
+        }
+    }
 }

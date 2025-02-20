@@ -20,7 +20,7 @@ public class Driver2 {
 
         int courseIndex = 0;
         int studentIndex = 0;
-        int enrollmentIndex = 0;
+        int enrollmentIndex = 0; 
 
         StringBuilder invalidEntries = new StringBuilder();
 
